@@ -1,0 +1,10 @@
+// 声明使用proto3版本语法
+syntax = "proto3";
+// 导入消息类型
+import "types.proto";
+
+// 定义服务接口
+service MyServer {
+    // 接口名
+    rpc send_msg (types.msg1) returns (types.msg1);
+}

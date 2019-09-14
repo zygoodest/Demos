@@ -1,0 +1,6 @@
+需要安装python操作redis-py模块
+    pip3 install redis
+
+redis-py提供两个类Redis和StrictRedis
+    StrictRedis用于实现大部分官方命令
+    Redis是Strictedis的子类，用于向后兼容旧版本的redis-py
