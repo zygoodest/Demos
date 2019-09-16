@@ -20,4 +20,3 @@ c = Singleton("cc")
 
 
 print(c.name)
-

@@ -1,0 +1,18 @@
+// 申明使用proto3版本的语法
+syntax = "proto3";
+
+
+// 定义消息类型
+message MyRequest {
+    string name = 1;
+}
+message MyReply {
+    string name = 1;
+}
+
+
+// 定义服务
+service Test {
+    // 在服务中定义接口(指定请求和相应类型)
+    rpc SayHello(MyRequest) returns (MyReply) {}
+}

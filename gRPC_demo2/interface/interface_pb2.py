@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0finterface.proto\x1a\x0btypes.proto20\n\x08MyServer\x12$\n\x08send_msg\x12\x0b.types.msg1\x1a\x0b.types.msg1b\x06proto3')
+  serialized_pb=_b('\n\x0finterface.proto\x1a\x0btypes.proto2,\n\x04Test\x12$\n\x08send_msg\x12\x0b.types.msg1\x1a\x0b.types.msg1b\x06proto3')
   ,
   dependencies=[types__pb2.DESCRIPTOR,])
 
@@ -31,18 +31,18 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-_MYSERVER = _descriptor.ServiceDescriptor(
-  name='MyServer',
-  full_name='MyServer',
+_TEST = _descriptor.ServiceDescriptor(
+  name='Test',
+  full_name='Test',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   serialized_start=32,
-  serialized_end=80,
+  serialized_end=76,
   methods=[
   _descriptor.MethodDescriptor(
     name='send_msg',
-    full_name='MyServer.send_msg',
+    full_name='Test.send_msg',
     index=0,
     containing_service=None,
     input_type=types__pb2._MSG1,
@@ -50,8 +50,8 @@ _MYSERVER = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_MYSERVER)
+_sym_db.RegisterServiceDescriptor(_TEST)
 
-DESCRIPTOR.services_by_name['MyServer'] = _MYSERVER
+DESCRIPTOR.services_by_name['Test'] = _TEST
 
 # @@protoc_insertion_point(module_scope)
