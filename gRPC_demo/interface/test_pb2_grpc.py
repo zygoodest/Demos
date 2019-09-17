@@ -6,6 +6,7 @@ import test_pb2 as test__pb2
 
 class TestStub(object):
   """定义服务
+  在服务中定义接口(指定请求和响应应类型)
   """
 
   def __init__(self, channel):
@@ -14,8 +15,23 @@ class TestStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.SayHello = channel.unary_unary(
-        '/Test/SayHello',
+    self.UnaryRPCs = channel.unary_unary(
+        '/Test/UnaryRPCs',
+        request_serializer=test__pb2.MyRequest.SerializeToString,
+        response_deserializer=test__pb2.MyReply.FromString,
+        )
+    self.ServerStreamingRPCs = channel.unary_stream(
+        '/Test/ServerStreamingRPCs',
+        request_serializer=test__pb2.MyRequest.SerializeToString,
+        response_deserializer=test__pb2.MyReply.FromString,
+        )
+    self.ClientStreamingRPCs = channel.stream_unary(
+        '/Test/ClientStreamingRPCs',
+        request_serializer=test__pb2.MyRequest.SerializeToString,
+        response_deserializer=test__pb2.MyReply.FromString,
+        )
+    self.BidirectionalStreamingRPCs = channel.stream_stream(
+        '/Test/BidirectionalStreamingRPCs',
         request_serializer=test__pb2.MyRequest.SerializeToString,
         response_deserializer=test__pb2.MyReply.FromString,
         )
@@ -23,10 +39,32 @@ class TestStub(object):
 
 class TestServicer(object):
   """定义服务
+  在服务中定义接口(指定请求和响应应类型)
   """
 
-  def SayHello(self, request, context):
-    """在服务中定义接口(指定请求和相应类型)
+  def UnaryRPCs(self, request, context):
+    """一元RPC示例
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ServerStreamingRPCs(self, request, context):
+    """服务端流式RPC示例
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ClientStreamingRPCs(self, request_iterator, context):
+    """客户端流式RPC示例
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def BidirectionalStreamingRPCs(self, request_iterator, context):
+    """双向流式RPC示例
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
@@ -35,8 +73,23 @@ class TestServicer(object):
 
 def add_TestServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'SayHello': grpc.unary_unary_rpc_method_handler(
-          servicer.SayHello,
+      'UnaryRPCs': grpc.unary_unary_rpc_method_handler(
+          servicer.UnaryRPCs,
+          request_deserializer=test__pb2.MyRequest.FromString,
+          response_serializer=test__pb2.MyReply.SerializeToString,
+      ),
+      'ServerStreamingRPCs': grpc.unary_stream_rpc_method_handler(
+          servicer.ServerStreamingRPCs,
+          request_deserializer=test__pb2.MyRequest.FromString,
+          response_serializer=test__pb2.MyReply.SerializeToString,
+      ),
+      'ClientStreamingRPCs': grpc.stream_unary_rpc_method_handler(
+          servicer.ClientStreamingRPCs,
+          request_deserializer=test__pb2.MyRequest.FromString,
+          response_serializer=test__pb2.MyReply.SerializeToString,
+      ),
+      'BidirectionalStreamingRPCs': grpc.stream_stream_rpc_method_handler(
+          servicer.BidirectionalStreamingRPCs,
           request_deserializer=test__pb2.MyRequest.FromString,
           response_serializer=test__pb2.MyReply.SerializeToString,
       ),

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\ntest.proto\"\x19\n\tMyRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x17\n\x07MyReply\x12\x0c\n\x04name\x18\x01 \x01(\t2*\n\x04Test\x12\"\n\x08SayHello\x12\n.MyRequest\x1a\x08.MyReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\ntest.proto\"\x19\n\tMyRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x17\n\x07MyReply\x12\x0c\n\x04name\x18\x01 \x01(\t2\xc7\x01\n\x04Test\x12#\n\tUnaryRPCs\x12\n.MyRequest\x1a\x08.MyReply\"\x00\x12/\n\x13ServerStreamingRPCs\x12\n.MyRequest\x1a\x08.MyReply\"\x00\x30\x01\x12/\n\x13\x43lientStreamingRPCs\x12\n.MyRequest\x1a\x08.MyReply\"\x00(\x01\x12\x38\n\x1a\x42idirectionalStreamingRPCs\x12\n.MyRequest\x1a\x08.MyReply\"\x00(\x01\x30\x01\x62\x06proto3')
 )
 
 
@@ -113,13 +113,40 @@ _TEST = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=66,
-  serialized_end=108,
+  serialized_start=67,
+  serialized_end=266,
   methods=[
   _descriptor.MethodDescriptor(
-    name='SayHello',
-    full_name='Test.SayHello',
+    name='UnaryRPCs',
+    full_name='Test.UnaryRPCs',
     index=0,
+    containing_service=None,
+    input_type=_MYREQUEST,
+    output_type=_MYREPLY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ServerStreamingRPCs',
+    full_name='Test.ServerStreamingRPCs',
+    index=1,
+    containing_service=None,
+    input_type=_MYREQUEST,
+    output_type=_MYREPLY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ClientStreamingRPCs',
+    full_name='Test.ClientStreamingRPCs',
+    index=2,
+    containing_service=None,
+    input_type=_MYREQUEST,
+    output_type=_MYREPLY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='BidirectionalStreamingRPCs',
+    full_name='Test.BidirectionalStreamingRPCs',
+    index=3,
     containing_service=None,
     input_type=_MYREQUEST,
     output_type=_MYREPLY,

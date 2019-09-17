@@ -13,6 +13,18 @@ message MyReply {
 
 // 定义服务
 service Test {
-    // 在服务中定义接口(指定请求和相应类型)
-    rpc SayHello(MyRequest) returns (MyReply) {}
+    // 在服务中定义接口(指定请求和响应应类型)
+
+    // 一元RPC示例
+    rpc UnaryRPCs(MyRequest) returns (MyReply) {}
+
+    // 服务端流式RPC示例
+    rpc ServerStreamingRPCs(MyRequest) returns (stream MyReply) {}
+
+    // 客户端流式RPC示例
+    rpc ClientStreamingRPCs(stream MyRequest) returns (MyReply) {}
+
+    // 双向流式RPC示例
+    rpc BidirectionalStreamingRPCs(stream MyRequest) returns (stream MyReply) {}
+
 }

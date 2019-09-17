@@ -8,7 +8,17 @@ sys.path.append("./interface")
 import test_pb2_grpc as s
 import test_pb2 as msg
 
+stub = None
+
 class Client(object):
+    instance = None
+
+    def __new__(cls, *args, **kwargs):
+        """重写new方法，实现单例模式"""
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.grpc_host = "localhost:50051"          # grpc服务器地址
         self.timeout = 10                           # 等待服务器的超时时间(秒)
@@ -30,9 +40,10 @@ class Client(object):
             sys.exit("Error connecting to server")
 
     def init_server(self):
-        """实例化一个服务"""
-        self.stub = stub.TestStub(self.channel)
-
+        """实例化一个stub"""
+        self.stub = s.TestStub(self.channel)
+        global mystub
+        mystub = self.stub
 
     def SayHello(self):
         request = msg.MyRequest(name="zy")
@@ -40,9 +51,39 @@ class Client(object):
         print(response)
 
 
+
 if __name__ == "__main__":
     c = Client()
-    c.SayHello()
+
+    
+    request1 = msg.MyRequest(name="zy")
+
+    response1 = stub.UnaryRPCs(request1)
+    print(response1.name)
+    print("*******************************")
+
+
+    response2 = stub.ServerStreamingRPCs(request1)
+    for i in response2:
+        print(i.name)
+    print("*******************************")
+
+
+    def mad_iterator():
+        for i in range(5):
+            tmp = msg.MyRequest(name=str(i))
+            yield tmp
+
+    response3 = stub.ClientStreamingRPCs(mad_iterator())
+    print(response3)
+    print("*******************************")
+
+
+    response4 = stub.BidirectionalStreamingRPCs(mad_iterator())
+    for i in response4:
+        print(i.name)
+    print("*******************************")
+
 
 
 
